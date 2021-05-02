@@ -1,6 +1,7 @@
 let puppeteer = require("puppeteer");
 let fs = require("fs");
 let path = require("path");
+let excelFn = require("./excelFn")
 // No of Videos
 // Total number of views
 // watch time -> get
@@ -48,7 +49,12 @@ console.log("Before");
             createStream.end();
         }
         fs.writeFileSync(pathOfFile, JSON.stringify(videoStats));
-      
+        
+        // write into excel file
+        let pathOfExcelFile = path.join(__dirname, "PlayList.xlsx");
+        console.log(pathOfExcelFile);
+        excelFn.excelWriter(pathOfExcelFile, videoStats, "PlayList")
+
         // other approach can be using loader wait 
     } catch (err) {
         console.log(err);
